@@ -32,7 +32,9 @@ http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/a1a.t
 
 
 3. edit svmlin, set the variables
+
 SVMLIN_DIR = "~/packages/svmlin-v1.0"
+
 LIBLINEAR_DIR = "~/packages/liblinear-1.94"
 
 4. run
