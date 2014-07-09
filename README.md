@@ -25,7 +25,9 @@ To get started
 
 
 2.  download the a1a trainig and test data sets
+
 http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/a1a
+
 http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/a1a.t
 
 
