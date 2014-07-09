@@ -10,7 +10,10 @@ require 'fileutils'
 #  extract Accuracy from svmlin and store in an array
 #  only report top N
 
-SVMLIN = "~/packages/svmlin-v1.0/svmlin"
+SVMLIN_DIR = "~/packages/svmlin-v1.0"
+LIBLINEAR_DIR = "~/packages/liblinear-1.94"
+
+SVMLIN = "#{SVMLIN_DIR}/svmlin"
 
 name = ARGV.first
 
@@ -68,7 +71,7 @@ end
 
 # liblinear 
 
-LIBLINEAR_DIR = "~/packages/liblinear-1.94"
+
 
 cmd = "#{LIBLINEAR_DIR}/train #{name}"
 system cmd
