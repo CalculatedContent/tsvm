@@ -19,6 +19,16 @@ http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary.html
 
 to determine how to tune svmlin well and what kind of data sets it performs well on
 
+Later, we would like to look at Semi-Supervised learning algos such as
+
+http://www.dii.unisi.it/~melacci/lapsvmp/
+
+and the python scikit learn label propagation algo
+
+http://scikit-learn.org/stable/modules/label_propagation.html
+
+
+
 To get started
 
 1.  download and install liblinear and svmlin
