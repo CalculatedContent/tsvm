@@ -21,7 +21,8 @@ to determine how to tune svmlin well and what kind of data sets it performs well
 
 To get started
 
-1.  http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/a1a.t
+1.  download and install liblinear and svmlin
+
 
 2.  download the a1a trainig and test data sets
 http://www.csie.ntu.edu.tw/~cjlin/libsvmtools/datasets/binary/a1a
