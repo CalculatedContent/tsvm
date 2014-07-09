@@ -83,12 +83,9 @@ cmd = "#{LIBLINEAR_DIR}/train -v 10  #{name}.t"
 system cmd
 
 
-
-#[0.01, 0.05, 0.1].each do |u|
-#[0.01, 0.05, 0.1].each do |w|
-
-[0.01].each do |u|
-[0.01].each do |w|
+# need a more extensive grid search
+[0.01, 0.025, 0.05, 0.075, 0.1].each do |u|
+[0.01, 0.025, 0.05, 0.075, 0.1].each do |w|
   puts "acc -A 2 -W #{w} -U #{u} "
   cmd = "#{SVMLIN} -A 3 -W #{w} -U #{u}  #{svmlin_examples} #{svmlin_labels} > /dev/null"
   system cmd    
