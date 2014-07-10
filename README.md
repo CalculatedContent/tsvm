@@ -33,7 +33,10 @@ For Newbies:
 learn how to run liblinear on the libsvm data sets
 
   We need someone to create a liblinear tutorial
+For now, you can see
+  http://jamescpoole.com/2012/10/30/libsvm-tutorial-part-1-overview/
 
+  libsvm is almost identical to liblinear 
 
 
 
