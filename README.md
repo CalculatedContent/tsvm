@@ -28,6 +28,14 @@ and the python scikit learn label propagation algo
 http://scikit-learn.org/stable/modules/label_propagation.html
 
 
+For Newbies:
+  If you don't know anything about machine learning, you should first
+learn how to run liblinear on the libsvm data sets
+
+  We need someone to create a liblinear tutorial
+
+
+
 
 To get started
 
