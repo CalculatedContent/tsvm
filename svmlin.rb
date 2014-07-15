@@ -69,25 +69,38 @@ end
 end
 end
 
-# liblinear 
+# We should do better than the liblinear (or svmlin) baseline (or lower bound)
+#  but we do not expect to do much better than the test upper bound
+#   (not quite right, we really want the test reconstruction accuracy)
+#
 
-
-
+# liblinear baseline, not optimized
+$stdout << "baseline (lower bound):  "
 cmd = "#{LIBLINEAR_DIR}/train #{name}"
 system cmd
 
 cmd = "#{LIBLINEAR_DIR}/predict #{name}.t #{name}.model  liblinear.#{name}.out"
 system cmd
 
-cmd = "#{LIBLINEAR_DIR}/train -v 10  #{name}.t"
+$stdout << "upper bound:  "
+# test upper bound
+cmd = "#{LIBLINEAR_DIR}/train  #{name}.t"
 system cmd
+
+cmd = "#{LIBLINEAR_DIR}/predict #{name}.t #{name}.t.model  liblinear.t.#{name}.out"
+system cmd
+
+# add in the svmlin non-transductive basline
+#cmd = "#{SVMLIN} -A 1 #{name}.t.examples #{name}.t.labels "
+#system cmd    
 
 
 # need a more extensive grid search
 [0.01, 0.025, 0.05, 0.075, 0.1].each do |u|
 [0.01, 0.025, 0.05, 0.075, 0.1].each do |w|
   puts "acc -A 2 -W #{w} -U #{u} "
-  cmd = "#{SVMLIN} -A 3 -W #{w} -U #{u}  #{svmlin_examples} #{svmlin_labels} > /dev/null"
+
+  cmd = "#{SVMLIN} -A 2 -W #{w} -U #{u}  #{svmlin_examples} #{svmlin_labels} > /dev/null"
   system cmd    
 
   cmd = "#{SVMLIN} -f #{svmlin_examples}.weights #{test_examples} #{test_labels} | grep -i acc"
