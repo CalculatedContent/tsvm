@@ -75,14 +75,14 @@ end
 #
 
 # liblinear baseline, not optimized
-$stdout << "baseline (lower bound):  "
+$stdout << "liblinear baseline (lower bound):  "
 cmd = "#{LIBLINEAR_DIR}/train #{name}"
 system cmd
 
 cmd = "#{LIBLINEAR_DIR}/predict #{name}.t #{name}.model  liblinear.#{name}.out"
 system cmd
 
-$stdout << "upper bound:  "
+$stdout << "linlinear upper bound:  "
 # test upper bound
 cmd = "#{LIBLINEAR_DIR}/train  #{name}.t"
 system cmd
@@ -90,29 +90,38 @@ system cmd
 cmd = "#{LIBLINEAR_DIR}/predict #{name}.t #{name}.t.model  liblinear.t.#{name}.out"
 system cmd
 
+
+# svmlin baseline, not optimized                                                                                                                                                               
+$stdout << "svmlin baseline (lower bound):  "
+cmd = "#{SVMLIN} -A 1 #{train_examples} #{train_labels}"
+system cmd
+
+cmd = "#{SVMLIN} -f #{train_examples}.weights #{test_examples} #{test_labels}"
+system cmd
+
+
+
+
 # add in the svmlin non-transductive basline
 #cmd = "#{SVMLIN} -A 1 #{name}.t.examples #{name}.t.labels "
 #system cmd    
 
 
 # need a more extensive grid search
-[0.01, 0.025, 0.05, 0.075, 0.1].each do |u|
-[0.01, 0.025, 0.05, 0.075, 0.1].each do |w|
-  puts "acc -A 2 -W #{w} -U #{u} "
 
-  cmd = "#{SVMLIN} -A 2 -W #{w} -U #{u}  #{svmlin_examples} #{svmlin_labels} > /dev/null"
-  system cmd    
 
-  cmd = "#{SVMLIN} -f #{svmlin_examples}.weights #{test_examples} #{test_labels} | grep -i acc"
-  system cmd
+w_seq = "seq -w 0.0001 0.0002 0.002"
+u_seq = "seq -w 0.001 0.005 0.4"
 
-  puts "acc -A 3 -W #{w} -U #{u} "
-  cmd = "#{SVMLIN} -A 3 -W #{w} -U #{u}  #{svmlin_examples} #{svmlin_labels} > /dev/null"
-  system cmd
 
-  cmd = "#{SVMLIN} -f #{svmlin_examples}.weights #{test_examples} #{test_labels} | grep -i acc" 
-  system cmd
+dir = "A2W{1}U{2}"
+dir_cmd = "rm -rf #{dir}; mkdir #{dir}; cd #{dir}"
+train_cmd = "#{SVMLIN} -A 2 -W {1} -U {2}  ../#{svmlin_examples} ../#{svmlin_labels} > /dev/null"
+eval_cmd = "echo A2W{1}U{2}; #{SVMLIN} -f #{svmlin_examples}.weights ../#{test_examples} ../#{test_labels} | grep -i acc"
 
-end
-end
-# TODO: measure how many pos / neg labels in the training data
+parallel_cmd = "parallel '#{dir_cmd}; #{train_cmd};#{eval_cmd}' ::: $(#{w_seq}) ::: $(#{u_seq})"
+puts parallel_cmd
+
+system parallel_cmd
+
+
