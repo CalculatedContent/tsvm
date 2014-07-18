@@ -8,6 +8,7 @@ learning algorithms
 The TSVM theory is described on my blog
 http://charlesmartin14.wordpress.com/2014/07/06/machine-learning-with-missing-labels-transductive-svms/
 
+
 The first objective is to test svmlin 
 http://vikas.sindhwani.org/svmlin.html
 
@@ -41,6 +42,9 @@ For now, you can see
 
 
 To get started
+0.  requirements:  ruby 2.x and gnu parallel
+ruby can be installed using rvm
+gnu parallel should be in the path
 
 1.  download and install liblinear and svmlin
 
