@@ -31,6 +31,9 @@ svmlin_output = "svmlin.#{name}.output"
 File.open(train_examples,'w') do |f_train|
 File.open(train_labels,'w') do |f_labels|
 
+
+# TODO:  add feature for testing cluster expansion
+# i need the total number of features
 File.open(name) do |f|
   f.each do |line|
     toks = line.chomp.split(/\s+/,2)
