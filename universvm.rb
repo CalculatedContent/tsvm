@@ -39,7 +39,7 @@ c_seq = "0.001 0.001 0.1 1.0 10 100 1000"
 
 train_cmd = "#{UNIVERSVM}  -c {1} -C {2} -o 1 -T #{test_file} #{train_file} > usvm.C{1}.c{2}.out"
 
-parallel_cmd = "parallel  #{train_cmd} ::: #{c_seq} ::: #{c_seq}"
+parallel_cmd = "parallel  '#{train_cmd}' ::: #{c_seq} ::: #{c_seq}"
 puts parallel_cmd
 
 system parallel_cmd
