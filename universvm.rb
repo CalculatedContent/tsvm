@@ -1,8 +1,7 @@
 #!/usr/bin/env  ruby
 require 'fileutils'
 
-UNIVERSVM_DIR = " ~/packages/universvm1.22"
-UNIVERSVM = "universvm"
+UNIVERSVM = " ~/packages/universvm1.22/universvm"
 
 name = ARGV.first
 
@@ -35,24 +34,14 @@ File.open(test_file,'a') do |f_test|
 end
 end
 
-cmd = "#{UNIVERSVM} -V 2 -o 1 -T #{test_file} #{train_file}"
-puts `cmd`
 
+c_seq = "0.001 0.001 0.1 1.0 10 100 1000"
 
+train_cmd = "#{UNIVERSVM}  -c {1} -C {2} -o 1 -T #{test_file} #{train_file} > usvm.C{1}.c{2}.out"
 
-w_seq = "seq -w 0.0001 0.0002 0.002"
-u_seq = "seq -w 0.001 0.005 0.4"
+parallel_cmd = "parallel  #{train_cmd} ::: #{c_seq} ::: #{c_seq}"
+puts parallel_cmd
 
-
-#dir = "A2W{1}U{2}"
-#dir_cmd = "rm -rf #{dir}; mkdir #{dir}; cd #{dir}"
-#train_cmd = "#{UNIVERSVM} -A 2 -W {1} -U {2}  ../#{svmlin_examples} ../#{svmlin_labels} > /dev/null"
-
-#eval_cmd = "echo A2W{1}U{2}; #{UNIVERSVM} -f #{svmlin_examples}.weights ../#{test_examples} ../#{test_labels} | grep -i acc"
-
-#parallel_cmd = "parallel '#{dir_cmd}; #{train_cmd};#{eval_cmd}' ::: $(#{w_seq}) ::: $(#{u_seq})"
-#puts parallel_cmd
-
-#system parallel_cmd
+system parallel_cmd
 
 
