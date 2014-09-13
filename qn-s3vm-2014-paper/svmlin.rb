@@ -21,11 +21,11 @@ testHO_examples =  "svmlin.testHO.examples."+name
 testHO_labels = "svmlin.testHO.labels."+name
 
 #w_seq = "0.009 0.008 0.007 0.006 0.005 0.004 0.003 0.002 0.001 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.07 0.08 0.09 0.1"
-#u_seq = "0.009 0.008 0.007 0.006 0.005 0.004 0.003 0.002 0.001 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.07 0.08 0.09 0.1"
+#u_seq = "$(seq -w 0.840 0.005 1.0)"
 
+w_seq = "100000 10000 1000 100 10 1 0.1 0.01 0.001 0.0001 0.00001"
+u_seq = w_seq
 
-w_seq = "seq -w 0.001 0.001 1.0"
-u_seq = "seq -w 0.001 0.001 1.0"
 
 dir = "A2W{1}U{2}"
 dir_cmd = "rm -rf #{dir}; mkdir #{dir}; cd #{dir}"
@@ -35,7 +35,7 @@ evalU_cmd = "echo U; #{SVMLIN} -f #{train_examples}.weights ../#{testU_examples}
 evalHO_cmd = "echo HO; #{SVMLIN} -f #{train_examples}.weights ../#{testHO_examples} ../#{testHO_labels} | grep -i acc"
 cleanup = "cd ..; rm -rf #{dir}"
 
-parallel_cmd = "parallel '#{dir_cmd}; #{train_cmd};#{evalL_cmd};#{evalU_cmd};#{evalHO_cmd};#{cleanup}' ::: $(#{w_seq}) ::: $(#{u_seq})"
+parallel_cmd = "parallel '#{dir_cmd}; #{train_cmd};#{evalL_cmd};#{evalU_cmd};#{evalHO_cmd};#{cleanup}' ::: #{w_seq} ::: #{u_seq}"
 puts parallel_cmd
 
 system parallel_cmd
